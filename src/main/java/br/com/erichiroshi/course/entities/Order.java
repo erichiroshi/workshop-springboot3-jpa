@@ -56,11 +56,6 @@ public class Order implements Serializable {
 		this.client = client;
 	}
 
-	public Double total() {
-		// TODO: implementar
-		return null;
-	}
-
 	public OrderStatus getOrderStatus() {
 		return OrderStatus.valueOf(orderStatus);
 	}
@@ -69,6 +64,14 @@ public class Order implements Serializable {
 		if (orderStatus != null) {
 			this.orderStatus = orderStatus.getCode();
 		}
+	}
+
+	public Double getTotal() {
+		double total = 0.0;
+		for(OrderItem item : items) {
+			total += item.getSubTotal();
+		}
+		return total;
 	}
 
 }
