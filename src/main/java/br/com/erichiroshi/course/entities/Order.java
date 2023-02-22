@@ -2,6 +2,8 @@ package br.com.erichiroshi.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -38,15 +41,15 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")
 	@Getter @Setter private User client;
 
+	@OneToMany(mappedBy = "id.order")
+	@Getter private Set<OrderItem> items = new HashSet<>();
+	
 	public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
 		this.id = id;
 		this.moment = moment;
 		setOrderStatus(orderStatus);
 		this.client = client;
 	}
-	
-//	@OneToOne
-//	private Payment payment;
 
 	public Double total() {
 		// TODO: implementar
