@@ -33,8 +33,8 @@ public class UserResource {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
-		User obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		User user = service.findById(id);
+		return ResponseEntity.ok().body(user);
 	}
 
 	@PostMapping
@@ -49,9 +49,9 @@ public class UserResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
